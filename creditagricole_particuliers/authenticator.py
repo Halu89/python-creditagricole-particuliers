@@ -57,7 +57,7 @@ class Authenticator:
 
         self.cookies = r.cookies
         rsp = json.loads(r.text)
-        self.keypadId = rsp["keypadId"]
+        keypadId = rsp["keypadId"]
 
         # compute the password according to the layout
         j_password = []
@@ -73,7 +73,7 @@ class Authenticator:
                    'path': '/content/npc/start',
                    'j_path_ressource': '%%2F%s%%2Fparticulier%%2Foperations%%2Fsynthese.html' % self.regional_bank_url,
                    'j_username': self.username,
-                   'keypadId': rsp["keypadId"],
+                   'keypadId': keypadId,
                    'j_validate': "true"}
         r2 = requests.post(url=url,
                            data=parse.urlencode(payload),

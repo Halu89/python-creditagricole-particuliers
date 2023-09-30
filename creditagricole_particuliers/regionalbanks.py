@@ -2,6 +2,7 @@ from urllib import parse
 import requests
 import json
 
+
 class RegionalBanks:
     def __init__(self):
         """regional banks"""
@@ -10,17 +11,17 @@ class RegionalBanks:
 
     def by_departement(self, department):
         url = "%s/particulier/acces-cr.get-cr-by-department.json" % (self.url)
-        headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+        headers = {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         payload = {'department': "%s" % department}
-        r = requests.post(url=url, 
+        r = requests.post(url=url,
                           data=parse.urlencode(payload),
                           headers=headers,
                           verify=self.ssl_verify)
         if r.status_code != 200:
-            raise Exception( "[error] get regional bank by departement: %s - %s" % (r.status_code, r.text) )
+            raise Exception("[error] get regional bank by departement: %s - %s" % (r.status_code, r.text))
 
         regionalBanks = json.loads(r.text)
         if not len(regionalBanks):
-            raise Exception( "[error] get regional bank by departement code not found"  )
+            raise Exception("[error] get regional bank by departement code not found")
 
         return regionalBanks[0]
